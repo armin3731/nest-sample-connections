@@ -4,7 +4,7 @@ import { Logger } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
 
 // create a logger
-const logger = new Logger('Main');
+const logger = new Logger('Microservice1');
 
 
 // Create the Microservice options object
@@ -18,9 +18,11 @@ const microserviceOptions = {
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule,microserviceOptions)
-  // app.listen(() => {
+  // await app.listen(() => {
   //   logger.log('Microservice1 is listening...');
   // });
-  app.listen();
+  app.listen().then(()=>{
+    logger.log('Microservice1 is running...')
+  });
 }
 bootstrap();
