@@ -9,10 +9,10 @@ const logger = new Logger('Microservice1');
 
 // Create the Microservice options object
 const microserviceOptions = {
-  transport: Transport.TCP,
+  transport: Transport.REDIS,
   options: {
-    host: '127.0.0.1',
-    port: 8877
+    url: 'redis://localhost:6379',
+    // port: 6379
   }
 }
 

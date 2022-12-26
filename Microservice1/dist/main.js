@@ -6,10 +6,9 @@ const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const logger = new common_1.Logger('Microservice1');
 const microserviceOptions = {
-    transport: microservices_1.Transport.TCP,
+    transport: microservices_1.Transport.REDIS,
     options: {
-        host: '127.0.0.1',
-        port: 8877
+        url: 'redis://localhost:6379',
     }
 };
 async function bootstrap() {
