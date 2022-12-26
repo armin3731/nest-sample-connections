@@ -15,15 +15,16 @@ const microservices_1 = require("@nestjs/microservices");
 let MathService = class MathService {
     constructor() {
         this.client = microservices_1.ClientProxyFactory.create({
-            transport: microservices_1.Transport.TCP,
+            transport: microservices_1.Transport.REDIS,
             options: {
                 host: 'localhost',
-                port: 8877
+                port: 6379
             }
         });
     }
     accumulate_remote(data) {
-        return this.client.send('add', data);
+        return this.client
+            .send('add', data);
     }
 };
 MathService = __decorate([
