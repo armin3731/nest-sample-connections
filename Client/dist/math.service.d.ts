@@ -1,3 +1,5 @@
 export declare class MathService {
-    accumulate(data: number[]): number;
+    private client;
+    constructor();
+    accumulate_remote(data: number[]): import("rxjs").Observable<number>;
 }

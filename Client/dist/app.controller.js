@@ -17,16 +17,16 @@ const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const math_service_1 = require("./math.service");
 let AppController = class AppController {
-    constructor(appService, mathService) {
+    constructor(appService, mathService_remote) {
         this.appService = appService;
-        this.mathService = mathService;
+        this.mathService_remote = mathService_remote;
     }
     getHello() {
         return this.appService.getHello();
     }
     async accumulate(data) {
-        console.log('Adding ' + data);
-        return this.mathService.accumulate(data);
+        console.log('Sending data ... ' + data);
+        return this.mathService_remote.accumulate_remote(data);
     }
 };
 __decorate([

@@ -4,7 +4,7 @@ import { MathService } from './math.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private mathService: MathService) {}
+  constructor(private readonly appService: AppService, private mathService_remote: MathService) {}
 
 
   @Get()
@@ -15,8 +15,8 @@ export class AppController {
   @Post('add')
   async accumulate(@Body('data') data: number[]){
     //Define the logic to be executed
-    console.log('Adding ' + data);
-    return this.mathService.accumulate(data);
+    console.log('Sending data ... ' + data);
+    return this.mathService_remote.accumulate_remote(data);
 
   }
 }
