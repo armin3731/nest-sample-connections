@@ -1,9 +1,7 @@
-import { AppService } from './app.service';
-import { MathService } from './math.service';
 export declare class AppController {
-    private readonly appService;
-    private mathService_remote;
-    constructor(appService: AppService, mathService_remote: MathService);
+    private client;
+    private grpcService;
+    onModuleInit(): void;
     getHello(): string;
-    accumulate(data: number[]): Promise<import("rxjs").Observable<number>>;
+    accumulate(data: number[]): Promise<import("rxjs").Observable<any>>;
 }

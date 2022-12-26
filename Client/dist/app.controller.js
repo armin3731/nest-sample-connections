@@ -14,21 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-const math_service_1 = require("./math.service");
+const microservices_1 = require("@nestjs/microservices");
+const grpc_options_1 = require("./grpc.options");
 let AppController = class AppController {
-    constructor(appService, mathService_remote) {
-        this.appService = appService;
-        this.mathService_remote = mathService_remote;
+    onModuleInit() {
+        this.grpcService = this.client.getService('AppController');
     }
     getHello() {
-        return this.appService.getHello();
+        return "Hello World From Text!!";
     }
     async accumulate(data) {
         console.log('Sending data ... ' + data);
-        return this.mathService_remote.accumulate_remote(data);
+        return this.grpcService.accumulate({ data });
     }
 };
+__decorate([
+    (0, microservices_1.Client)(grpc_options_1.microserviceOptions),
+    __metadata("design:type", Object)
+], AppController.prototype, "client", void 0);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -43,8 +46,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "accumulate", null);
 AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService, math_service_1.MathService])
+    (0, common_1.Controller)()
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map
