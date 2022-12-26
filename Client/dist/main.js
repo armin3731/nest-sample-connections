@@ -1,10 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@nestjs/core");
-const app_module_1 = require("./app.module");
-async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    await app.listen(3000);
-}
-bootstrap();
+const microservices_1 = require("@nestjs/microservices");
+const common_1 = require("@nestjs/common");
+const logger = new common_1.Logger('Client');
+const microserveiceOptions = {
+    transport: microservices_1.Transport.TCP,
+    options: {
+        host: 'localhost',
+        port: 8877,
+    }
+};
+const client = microservices_1.ClientProxyFactory.create(microserveiceOptions);
+client
+    .send('add', [1, 2, 3])
+    .subscribe(result => logger.log(result));
 //# sourceMappingURL=main.js.map
