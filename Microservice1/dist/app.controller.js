@@ -22,9 +22,9 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    async accumulate(data) {
-        console.log('Adding ' + data);
-        return this.mathService.accumulate(data);
+    accumulate_remote(numberArray, metadata) {
+        console.log('Adding' + numberArray.data.toString());
+        return { sum: this.mathService.accumulate(numberArray.data) };
     }
 };
 __decorate([
@@ -34,11 +34,11 @@ __decorate([
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('add'),
+    (0, microservices_1.GrpcMethod)('AppController', 'Accumulate'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Array]),
-    __metadata("design:returntype", Promise)
-], AppController.prototype, "accumulate", null);
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Object)
+], AppController.prototype, "accumulate_remote", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService, math_service_1.MathService])
