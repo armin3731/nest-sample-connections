@@ -1,10 +1,10 @@
 # compiled output
 /dist
-Microservice1/dist
-Client/dist
+/Microservice1/dist
+/Client/dist
 /node_modules
-Microservice1/node_modules
-Client/node_modules
+/Microservice1/node_modules
+/Client/node_modules
 
 # Logs
 logs
