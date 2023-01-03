@@ -10,10 +10,13 @@ const logger = new Logger('Microservice1');
 
 // Create the Microservice options object
 const microserviceOptions = {
-  transport: Transport.GRPC,
+  transport: Transport.RMQ,
   options: {
-    package: 'app',
-    protoPath: join(__dirname, '../src/app.proto')
+    urls: ['amqp://localhost:5672'],
+    queue: 'microservice1',
+    queueOptions: {
+      durable: false
+    },
   }
 }
 

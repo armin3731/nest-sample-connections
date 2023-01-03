@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MathService } from './math.service';
-import { GrpcMethod } from '@nestjs/microservices';
+import { Ctx, GrpcMethod, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 
 
 // Defineing gRPC Interfaces
@@ -24,9 +24,10 @@ export class AppController {
   }
 
   // Define the message pattern for this method
-  @GrpcMethod('AppController','Accumulate')
-  accumulate_remote(numberArray: INumberArray, metadata: any): ISumOfNumberArray{
-    console.log('Adding' + numberArray.data.toString());
-    return { sum: this.mathService.accumulate(numberArray.data)}
+  @MessagePattern('add')
+  accumulate_remote(@Payload() data: number[], @Ctx() context: RmqContext){
+    console.log(`Adding... ${data}`);
+    return { sum: this.mathService.accumulate(data)}
   }
+
 }
