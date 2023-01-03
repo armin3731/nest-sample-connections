@@ -1,20 +1,27 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Client, ClientGrpc } from '@nestjs/microservices';
-import { IGrpcService } from './grpc.interface';
-import { microserviceOptions } from './grpc.options';
+import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
+
+
 
 @Controller()
 export class AppController {
-  @Client(microserviceOptions)  
-  private client: ClientGrpc;
+  private client: ClientProxy;
+  
 
-  private grpcService: IGrpcService;
-
-  // private grpcdata: INumberArray;
-
-  onModuleInit(){
-    this.grpcService = this.client.getService<IGrpcService>('AppController');
+  constructor(){
+    this.client = ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: ['amqp://localhost:5672'],
+        queue: 'microservice1',
+        queueOptions: {
+          durable: false
+        },
+      }
+    })
   }
+
+
 
   @Get()
   getHello(): string {
@@ -25,7 +32,7 @@ export class AppController {
   async accumulate(@Body('data') data: number[]){
     //Define the logic to be executed
     console.log('Sending data ... ' + data);
-    return this.grpcService.accumulate({ data });
+    return this.client.send<number, number[]>('add', data)
 
   }
 }
