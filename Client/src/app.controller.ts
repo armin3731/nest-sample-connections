@@ -10,13 +10,9 @@ export class AppController {
 
   constructor(){
     this.client = ClientProxyFactory.create({
-      transport: Transport.RMQ,
+      transport: Transport.MQTT,
       options: {
-        urls: ['amqp://localhost:5672'],
-        queue: 'microservice1',
-        queueOptions: {
-          durable: false
-        },
+        url: 'mqtt://localhost:1883',
       }
     })
   }
