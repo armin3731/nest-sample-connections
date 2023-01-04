@@ -6,6 +6,8 @@ const logger = new Logger('Client');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  await app.listen(3000).then(()=>{
+    logger.log('Client is listening...')
+  });
 }
 bootstrap();
